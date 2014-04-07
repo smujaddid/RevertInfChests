@@ -8,7 +8,7 @@ Permissions:
 - revinfchests.admin.revchest --- /revchest /revchests
 
 Commands:
-- /revchest <x> <y> --- Revert chest at <x>, <y> location
+- /revchest \<x\> \<y\> --- Revert chest at \<x\>, \<y\> location
 - /revchests --- Revert all chests
 
 Current Version:
