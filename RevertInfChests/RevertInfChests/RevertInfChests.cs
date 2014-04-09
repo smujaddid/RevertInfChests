@@ -19,7 +19,7 @@ namespace RevertInfChests
     public class RevertInfChests : TerrariaPlugin
     {
         #region Permission Strings
-        private static string PRIMARY = "revinfchests.admin.revchest";
+        private static string PRIMARY = "revertinfchests.admin.revert";
         #endregion
 
         #region Info
@@ -108,24 +108,21 @@ namespace RevertInfChests
                                 Main.chest[id].item[i] = item;
                             }
 
-                            e.Player.SendSuccessMessage("[InfiniteChests] Reverted chest {0},{1}",
+                            e.Player.SendSuccessMessage("Reverted chest {0},{1}",
                                 Main.chest[id].x, Main.chest[id].y);
                         } else {
-                            e.Player.SendErrorMessage("[InfiniteChests] Can not revert chest at {0},{1}",
+                            e.Player.SendErrorMessage("Can not revert chest at {0},{1}",
                                 Main.chest[id].x, Main.chest[id].y);
                         }
                     }
                 }
-                
-                //if (count > 0)
-                //    WorldFile.saveWorld();
             });
         }
 
         void RevertChests(CommandArgs e) {
             Task.Factory.StartNew(() =>
             {
-                int count = 0;
+                int successCount = 0, failedCount  = 0;
 
                 using (var reader = Database.QueryReader("SELECT X, Y, Items FROM Chests WHERE WorldID = @0",
                         Main.worldID)) {
@@ -136,7 +133,7 @@ namespace RevertInfChests
 
                         int id = Terraria.Chest.CreateChest(x, y);
 
-                        if (Main.chest[id] != null) {
+                        if (id >= 0 && Main.chest[id] != null) {
                             if (Main.chest[id].item == null)
                                 Main.chest[id].item = new Item[Terraria.Chest.maxItems];
 
@@ -149,21 +146,15 @@ namespace RevertInfChests
                                 Main.chest[id].item[i] = item;
                             }
 
-                            // e.Player.SendSuccessMessage("[InfiniteChests] Reverted chest {0},{1}",
-                            //    Main.chest[id].x, Main.chest[id].y);
-
-                            count++;
+                            successCount++;
                         } else {
-                            //e.Player.SendErrorMessage("[InfiniteChests] Can not revert chest at {0},{1}",
-                            //    Main.chest[id].x, Main.chest[id].y);
+                            failedCount++;
                         }
                     }
                 }
 
-                e.Player.SendSuccessMessage("Reverted {0} chest{1}.", count, count == 1 ? "" : "s");
-
-                //if (count > 0)
-                //    WorldFile.saveWorld();
+                e.Player.SendSuccessMessage("Reverting chest(s) done! Success : {0} Failed : {1}",
+                    successCount, failedCount);
             });
         }
     }
