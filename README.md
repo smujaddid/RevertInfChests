@@ -5,14 +5,14 @@ Description:
 This plugin is intended to revert existing chests information converted with InfiniteChests plugin by MarioE from database to world file.
 
 Permissions:
-- revinfchests.admin.revchest --- /revchest /revchests
+- revertinfchests.admin.revert --- /revchest /revchests
 
 Commands:
 - /revchest \<x\> \<y\> --- Revert chest at \<x\>, \<y\> location
 - /revchests --- Revert all chests
 
 Current Version:
-1.0
+1.1
 
 Notes:
 - Backup your world map file before using this plugin.
