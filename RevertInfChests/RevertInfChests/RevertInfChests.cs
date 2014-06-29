@@ -15,7 +15,7 @@ using Mono.Data.Sqlite;
 
 namespace RevertInfChests
 {
-    [ApiVersion(1, 15)]
+    [ApiVersion(1, 16)]
     public class RevertInfChests : TerrariaPlugin
     {
         #region Permission Strings
